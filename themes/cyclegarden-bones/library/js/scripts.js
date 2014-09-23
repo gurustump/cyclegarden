@@ -168,7 +168,7 @@ jQuery(document).ready(function($) {
 		if(this.resizeTO) {clearTimeout(this.resizeTO)}
 		this.resizeTO = setTimeout(function() {
 			$(this).trigger('resizeEnd')
-		}, 250)
+		}, 150)
 	})
 	$(window).bind('resizeEnd',function() {
 		setGalleryOvSize()
@@ -198,6 +198,12 @@ jQuery(document).ready(function($) {
 		ov.find('img').width(width).height(height)
 	}
 	
+	if ( typeof is_parallax === "undefined" ) var is_parallax = $('body').hasClass('page-template-page-parallax-php');
+	
+	if (is_parallax) {
+		parallaxBackground($,$('#content > section'))
+	}
+	
 	// Hide wp admin bar
 	var adminBarMove = $('#wpadminbar').outerHeight()-1
 	$('#wpadminbar').animate({
@@ -214,3 +220,27 @@ jQuery(document).ready(function($) {
 		}
 	).append('<div class="wpadminbar-activator"></div>');
 }); /* end of as page load scripts */
+
+function parallaxBackground($,el) {
+	var win = $(window);
+	win.scroll(function() {
+		el.each(function(k) {
+			var topEdge = $(this).offset().top - win.scrollTop() - win.height();
+			var bottomEdge = $(this).offset().top - win.scrollTop() + $(this).outerHeight();
+			var range = bottomEdge-topEdge;
+			var bgPosition = Math.round(topEdge / range * -100);
+			bgPosition = bgPosition < 0 ? 0 : bgPosition > 100 ? 100 : bgPosition;
+			$(this).css('background-position','50% '+bgPosition+'%');
+			/*if (k == 0) {
+				console.log('element relative to document: '+$(this).offset().top);
+				console.log('window scroll: '+$(window).scrollTop());
+				console.log('element relative to window: '+($(this).offset().top - win.scrollTop()));
+				console.log('bottom of element relative to window: '+($(this).offset().top - win.scrollTop() + $(this).outerHeight()));
+				console.log('element relative to window - window height: '+( $(this).offset().top - win.scrollTop() - win.height() ));
+				console.log('range: '+range)
+				console.log(topEdge / range * -1)
+				console.log(bgPosition)
+			}*/
+		});
+	});
+}
