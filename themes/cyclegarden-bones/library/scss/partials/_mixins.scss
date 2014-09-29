@@ -81,3 +81,9 @@ probably best not to use it. I mean, were you going to anyway? */
 		#{$prefix}border-radius: $radius;
 	}
 }
+
+@mixin columns($args) {
+	@each $prefix in $prefixes {
+		#{$prefix}columns: $args;
+	}
+}

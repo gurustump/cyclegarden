@@ -112,6 +112,16 @@ jQuery(document).ready(function($) {
 	* You can remove this if you don't need it
 	*/
 	loadGravatars();
+	
+	$('.TRIGGER_NAV_OV').click(function(e) {
+		e.preventDefault();
+		$(this).toggleClass('active');
+		var ov = $('.NAV_OV');
+		ov.toggleClass('open');
+		if (ov.hasClass('open')) {
+			equalHeight($,ov.find('.nav > li > .sub-menu'));
+		}
+	});
 
 	$('#gallery_item_ov').dialog({
 		autoOpen:false,
@@ -120,29 +130,29 @@ jQuery(document).ready(function($) {
 		hide:130,
 		show:250,
 		open: function(e,ui) {
-			setGalleryOvSize()
-			thisDialog = $(this)
+			setGalleryOvSize();
+			thisDialog = $(this);
 			$('.ui-widget-overlay').click(function() {
 				thisDialog.dialog('close')
 				
-			})
+			});
 			/*$(this).closest('.gallery-item-ov-wrap').css({
 				margin:'-'+($(this).closest('.gallery-item-ov-wrap').height()/2)+'px 0 0 -'+($(this).closest('.gallery-item-ov-wrap').width()/2)+'px'
 			})*/
 		},
-	width:'auto'
+		width:'auto'
 	}).on('click', '.PREV, .NEXT', function(e) {
-		e.preventDefault()
+		e.preventDefault();
 		if ($(this).hasClass('disabled')) { return false }
 		if ($(this).hasClass('PREV')) {
-			$('#gallery_item_ov').data('current').prev().find('a').click()
+			$('#gallery_item_ov').data('current').prev().find('a').click();
 		} else if ($(this).hasClass('NEXT')) {
-			$('#gallery_item_ov').data('current').next().find('a').click()
+			$('#gallery_item_ov').data('current').next().find('a').click();
 		}
 	})
 	$('.gallery').on('click', 'figure .gallery-icon > a', function(e) {
-		e.preventDefault()
-		var thisItem = $(this).closest('.gallery-item')
+		e.preventDefault();
+		var thisItem = $(this).closest('.gallery-item');
 		$('#gallery_item_ov img').attr({
 			'src':thisItem.find('.IMG_SRC').val(),
 			'alt':$(this).find('img').attr('alt')
@@ -153,21 +163,21 @@ jQuery(document).ready(function($) {
 			'current':thisItem
 		}).dialog('open')
 		if (thisItem.is(':first-child')) {
-			$('#gallery_item_ov .PREV').addClass('disabled')
+			$('#gallery_item_ov .PREV').addClass('disabled');
 		} else {
-			$('#gallery_item_ov .PREV').removeClass('disabled')
+			$('#gallery_item_ov .PREV').removeClass('disabled');
 		}
 		if (thisItem.is(':last-child')) {
-			$('#gallery_item_ov .NEXT').addClass('disabled')
+			$('#gallery_item_ov .NEXT').addClass('disabled');
 		} else {
-			$('#gallery_item_ov .NEXT').removeClass('disabled')
+			$('#gallery_item_ov .NEXT').removeClass('disabled');
 		}
 	})
 
 	$(window).resize(function() {
 		if(this.resizeTO) {clearTimeout(this.resizeTO)}
 		this.resizeTO = setTimeout(function() {
-			$(this).trigger('resizeEnd')
+			$(this).trigger('resizeEnd');
 		}, 150)
 	})
 	$(window).bind('resizeEnd',function() {
@@ -243,4 +253,16 @@ function parallaxBackground($,el) {
 			}*/
 		});
 	});
+}
+
+// Equal Heights: group must be a jQuery object
+function equalHeight($, group) {
+	var tallest = 0;
+	group.each(function() {
+		var thisHeight = $(this).height();
+		if(thisHeight > tallest) {
+			tallest = thisHeight;
+		}
+	});
+	group.height(tallest);
 }

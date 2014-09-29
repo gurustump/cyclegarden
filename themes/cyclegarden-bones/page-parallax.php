@@ -3,52 +3,70 @@
  Template Name: Parallax Page
 */
 ?>
-
+<?php
+function showSection($num) {
+	return get_post_meta(get_the_ID(),'_cg_section_'.$num.'_background',true) != '' || get_post_meta(get_the_ID(),'_cg_section_'.$num.'_title',true) != '' || get_post_meta(get_the_ID(),'_cg_section_'.$num.'_content',true) != '';
+}
+function hasBackground($num) {
+	echo get_post_meta(get_the_ID(),'_cg_section_'.$num.'_background',true) == '' ? '':' bg-image';
+}
+function echoMeta($type,$num) {
+	echo get_post_meta(get_the_ID(),'_cg_section_'.$num.'_'.$type,true);
+}
+?>
 <?php get_header(); ?>
 			<div id="content">
 				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-				<section class="content-one" style="background-image:url(<?php echo get_post_meta(get_the_ID(),'_cg_section_1_background',true); ?>">
+				<section class="content-one<?php hasBackground('1') ?>" style="background-image:url(<?php echoMeta('background','1'); ?>)">
 					<div class="inner-content wrap">
 						<div id="main" role="main">
 							<header class="section-header">
-								<h1 class="page-title"><?php the_title(); ?></h1>
+								<?php if (!is_front_page()) { ?><h1 class="page-title"><?php the_title(); ?></h1><?php } ?>
 							</header>
 							<?php the_content(); ?>
 						</div>
 					</div>
-				</section> <?php /* </content-one> */ ?><?php print_r( get_post_meta(get_the_ID())); ?>
-				<section class="content-two" style="background-image:url(<?php echo get_post_meta(get_the_ID(),'_cg_section_2_background',true); ?>">
+				</section> <?php /* </content-one> */ ?><?php /* print_r( get_post_meta(get_the_ID())); */ ?>
+				<?php if (showSection('2')) { ?>
+				<section class="content-two<?php hasBackground('2'); ?>" style="background-image:url(<?php echoMeta('background','2'); ?>)">
 					<div class="inner-content wrap">
 						<header class="section-header">
-							<h2 class="section-title"><?php echo get_post_meta(get_the_ID(),'_cg_section_2_title',true); ?></h2>
+							<h2 class="section-title"><?php echoMeta('title','2'); ?></h2>
 						</header>
-						<?php echo get_post_meta(get_the_ID(),'_cg_section_2_content',true); ?>
+						<?php echoMeta('content','2'); ?>
 					</div>
-				</section> <?php /* </content-two> */ ?>
-				<section class="content-three" style="background-image:url(<?php echo get_post_meta(get_the_ID(),'_cg_section_3_background',true); ?>">
+				</section> 
+				<?php } /* </content-two> */ ?>
+				<?php if (showSection('3')) { ?>
+				<section class="content-three<?php hasBackground('3'); ?>" style="background-image:url(<?php echoMeta('background','3'); ?>)">
 					<div class="inner-content wrap">
 						<header class="section-header">
-							<h2 class="section-title"><?php echo get_post_meta(get_the_ID(),'_cg_section_3_title',true); ?></h2>
+							<h2 class="section-title"><?php echoMeta('title','3'); ?></h2>
 						</header>
-						<?php echo get_post_meta(get_the_ID(),'_cg_section_3_content',true); ?>
+						<?php echoMeta('content','3'); ?>
 					</div>
-				</section> <?php /* </content-three> */ ?>
-				<section class="content-four" style="background-image:url(<?php echo get_post_meta(get_the_ID(),'_cg_section_4_background',true); ?>">
+				</section>
+				<?php } /* </content-three> */ ?>
+				<?php if (showSection('4')) { ?>
+				<section class="content-four<?php hasBackground('4'); ?>" style="background-image:url(<?php echoMeta('background','4'); ?>)">
 					<div class="inner-content wrap">
 						<header class="section-header">
-							<h2 class="section-title"><?php echo get_post_meta(get_the_ID(),'_cg_section_4_title',true); ?></h2>
+							<h2 class="section-title"><?php echoMeta('title','4'); ?></h2>
 						</header>
-						<?php echo get_post_meta(get_the_ID(),'_cg_section_4_content',true); ?>
+						<?php echoMeta('content','4'); ?>
 					</div>
-				</section> <?php /* </content-four> */ ?>
-				<section class="content-five" style="background-image:url(<?php echo get_post_meta(get_the_ID(),'_cg_section_5_background',true); ?>">
+				</section>
+				<?php } /* </content-four> */ ?>
+				<?php if (showSection('5')) { ?>
+				<section class="content-five<?php hasBackground('5'); ?>" style="background-image:url(<?php echoMeta('background','5'); ?>)">
 					<div class="inner-content wrap">
 						<header class="section-header">
-							<h2 class="section-title"><?php echo get_post_meta(get_the_ID(),'_cg_section_5_title',true); ?></h2>
+							<h2 class="section-title"><?php echoMeta('title','5'); ?></h2>
 						</header>
-						<?php echo get_post_meta(get_the_ID(),'_cg_section_5_content',true); ?>
+						<?php echoMeta('content','5'); ?>
 					</div>
-				</section> <?php /* </content-five> */ ?>
+				</section>
+				<?php } /* </content-five> */ ?>
 				<?php endwhile; endif; ?>
 			</div><?php /* </content> */ ?>
 <?php get_footer(); ?>

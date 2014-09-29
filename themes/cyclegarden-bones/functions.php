@@ -424,7 +424,9 @@ can replace these fonts, change it in your scss files
 and be up and running in seconds.
 */
 function bones_fonts() {
-  wp_register_style('googleFonts', 'http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic');
+  //wp_register_style('googleFonts', 'http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic');
+  //wp_register_style('googleFonts', 'http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700');
+  wp_register_style('googleFonts', 'http://fonts.googleapis.com/css?family=Oswald:400,300,700|Roboto+Slab:400,100,300,700');
   wp_enqueue_style( 'googleFonts');
 }
 

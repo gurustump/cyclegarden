@@ -40,7 +40,15 @@
 	</head>
 
 	<body <?php body_class(); ?>>
-		<div class="nav-overlay">
+		<a href="#" class="trigger-nav-ov TRIGGER_NAV_OV">
+			<span class="ic">
+				<span class="bar-1"></span>
+				<span class="bar-2"></span>
+				<span class="bar-3"></span>
+			</span>
+			<span>Main Menu</span>
+		</a>
+		<div class="nav-ov NAV_OV">
 			<nav role="navigation">
 				<?php wp_nav_menu(array(
 				'container' => false,                           // remove nav container
@@ -59,19 +67,19 @@
 			</nav>
 		</div>
 		<header class="header" role="banner">
-
+			<?php if (is_front_page()) { ?>
 			<table id="inner-header">
 				<tr>
 					<td>
-
-						<?php $logoTag = is_front_page() ? 'h1' : 'p' ?>
-						<<?php echo $logoTag ?> id="logo" class="h1"><a href="<?php echo home_url(); ?>" rel="nofollow"><?php bloginfo('name'); ?></a></<?php echo $logoTag ?>>
-
+						<hi id="logo" class="h1"><a href="<?php echo home_url(); ?>" rel="nofollow"><?php bloginfo('name'); ?></a></h1>
 						<?php // if you'd like to use the site description you can un-comment it below ?>
 						<?php // bloginfo('description'); ?>
-
 					</td>
 				</td>
 			</table>
-
+			<?php } else { ?>
+				<div id="inner-header">
+					<p id="logo" class="h1"><a href="<?php echo home_url(); ?>" rel="nofollow"><?php bloginfo('name'); ?></a></p>
+				</div>
+			<?php } ?>
 		</header>

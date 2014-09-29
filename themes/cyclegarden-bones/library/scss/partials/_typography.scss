@@ -30,15 +30,98 @@ FONT FACE (IN YOUR FACE)
 
 /*  @font-face {
       font-family: 'Font Name';
-      src: url('library/fonts/font-name.eot');
-      src: url('library/fonts/font-name.eot?#iefix') format('embedded-opentype'),
-             url('library/fonts/font-name.woff') format('woff'),
-             url('library/fonts/font-name.ttf') format('truetype'),
-             url('library/fonts/font-name.svg#font-name') format('svg');
+      src: url('../fonts/font-name.eot');
+      src: url('../fonts/font-name.eot?#iefix') format('embedded-opentype'),
+             url('../fonts/font-name.woff') format('woff'),
+             url('../fonts/font-name.ttf') format('truetype'),
+             url('../fonts/font-name.svg#font-name') format('svg');
       font-weight: normal;
       font-style: normal;
   }
 */
+@font-face {
+    font-family: 'AdelleRegular';
+    src: url('../fonts/adelle-regular-webfont.eot');
+    src: url('../fonts/adelle-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/adelle-regular-webfont.woff2') format('woff2'),
+         url('../fonts/adelle-regular-webfont.woff') format('woff'),
+         url('../fonts/adelle-regular-webfont.ttf') format('truetype'),
+         url('../fonts/adelle-regular-webfont.svg#AdelleRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AdelleLight';
+    src: url('../fonts/adelle-light-webfont.eot');
+    src: url('../fonts/adelle-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/adelle-light-webfont.woff2') format('woff2'),
+         url('../fonts/adelle-light-webfont.woff') format('woff'),
+         url('../fonts/adelle-light-webfont.ttf') format('truetype'),
+         url('../fonts/adelle-light-webfont.svg#AdelleLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AdelleBold';
+    src: url('../fonts/adelle-bold-webfont.eot');
+    src: url('../fonts/adelle-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/adelle-bold-webfont.woff2') format('woff2'),
+         url('../fonts/adelle-bold-webfont.woff') format('woff'),
+         url('../fonts/adelle-bold-webfont.ttf') format('truetype'),
+         url('../fonts/adelle-bold-webfont.svg#AdelleBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AdelleItalic';
+    src: url('../fonts/adelle-italic-webfont.eot');
+    src: url('../fonts/adelle-italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/adelle-italic-webfont.woff2') format('woff2'),
+         url('../fonts/adelle-italic-webfont.woff') format('woff'),
+         url('../fonts/adelle-italic-webfont.ttf') format('truetype'),
+         url('../fonts/adelle-italic-webfont.svg#AdelleItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AdelleLightItalic';
+    src: url('../fonts/adelle-lightitalic-webfont.eot');
+    src: url('../fonts/adelle-lightitalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/adelle-lightitalic-webfont.woff2') format('woff2'),
+         url('../fonts/adelle-lightitalic-webfont.woff') format('woff'),
+         url('../fonts/adelle-lightitalic-webfont.ttf') format('truetype'),
+         url('../fonts/adelle-lightitalic-webfont.svg#AdelleLightItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AdelleBoldItalic';
+    src: url('../fonts/adelle-bolditalic-webfont.eot');
+    src: url('../fonts/adelle-bolditalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/adelle-bolditalic-webfont.woff2') format('woff2'),
+         url('../fonts/adelle-bolditalic-webfont.woff') format('woff'),
+         url('../fonts/adelle-bolditalic-webfont.ttf') format('truetype'),
+         url('../fonts/adelle-bolditalic-webfont.svg#AdelleBoldItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BambolaRegular';
+    src: url('../fonts/bambola-webfont.eot');
+    src: url('../fonts/bambola-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/bambola-webfont.woff2') format('woff2'),
+         url('../fonts/bambola-webfont.woff') format('woff'),
+         url('../fonts/bambola-webfont.ttf') format('truetype'),
+         url('../fonts/bambola-webfont.svg#BambolaRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
 
 /*
@@ -56,7 +139,11 @@ $serif:             "Georgia", Cambria, Times New Roman, Times, serif;
  i imported this one in the functions file so bones would look sweet.
  don't forget to remove it for your site.
 */
-$lato:              'Lato', $sans-serif;
+$lato:			'Lato', $sans-serif;
+$roboto:		'Roboto Slab',$serif;
+$adelle:		'AdelleRegular','Roboto Slab',$serif;
+$bambola:	'BambolaRegular';
+$oswald:		'Oswald', $sans-serif;
 
 /*
 some nice typographical defaults
