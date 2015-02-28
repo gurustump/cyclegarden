@@ -45,37 +45,25 @@ function cmb2_cyclegarden_metaboxes( array $meta_boxes ) {
 	 */
 	
 
-	$meta_boxes['homepage_slide_content'] = array(
-		'id'         => 'homepage_slide_content',
-		'title'      => __( 'Home Slider Content', 'cmb2' ),
-		'object_types'      => array( 'homepage_slide', ), // Post type
+	$meta_boxes['module_metabox'] = array(
+		'id'         => 'module_metabox',
+		'title'      => __( 'Module Metabox', 'cmb2' ),
+		'object_types'      => array( 'module', ), // Post type
 		'context'    => 'normal',
 		'priority'   => 'high',
 		'show_names' => true, // Show field names on the left
 		'fields'     => array(
             array(
-				'name' => __( 'Image', 'cmb2' ),
-                'desc' => __('Upload an image or enter an URL.', 'cmb2'),
-                'id'   => $prefix . 'homepage_slide_image',
+				'name' => __( 'Background Image', 'cmb2' ),
+                'id'   => $prefix . 'module_background',
                 'type' => 'file',
             ),
-            array(
-                'name'    => 'Caption',
-                'desc'    => __('The caption of the slider', 'cmb2'),
-                'id'      => $prefix . 'homepage_slide_caption',
-                'type'    => 'wysiwyg',
-                'options' => array(	'textarea_rows' => 5, ),
-            ),
-            array(
-                'name' => 'Button Label',
-                'id'   => $prefix . 'homepage_slide_label',
-                'type' => 'text_medium',
-            ),
-            array(
-                'name' => 'Link',
-                'id'   => $prefix . 'homepage_slide_link',
-                'type' => 'text',
-            ),
+			array(
+				'name' => 'Parallax Enabled',
+				'desc' => 'Check this to make the header image move in parallax',
+				'id' => $prefix . 'module_background_parallax',
+				'type' => 'checkbox'
+			),
 		),
 	);
 	
@@ -172,6 +160,12 @@ function cmb2_cyclegarden_metaboxes( array $meta_boxes ) {
 				'type' => 'file',
 			),
 			array(
+				'name' => 'Section 1 Parallax',
+				'desc' => "Check this to cause parallax effect on this section's background image",
+				'id' => $prefix . 'section_1_parallax',
+				'type' => 'checkbox'
+			),
+			array(
 				'name' => __( 'Section 2 Title', 'cmb2' ),
 				'id'   => $prefix . 'section_2_title',
 				'type' => 'text',
@@ -185,6 +179,12 @@ function cmb2_cyclegarden_metaboxes( array $meta_boxes ) {
 				'name' => 'Section 2 Background Image',
 				'id'   => $prefix . 'section_2_background',
 				'type' => 'file',
+			),
+			array(
+				'name' => 'Section 2 Parallax',
+				'desc' => "Check this to cause parallax effect on this section's background image",
+				'id' => $prefix . 'section_2_parallax',
+				'type' => 'checkbox'
 			),
 			array(
 				'name' => __( 'Section 3 Title', 'cmb2' ),
@@ -202,6 +202,12 @@ function cmb2_cyclegarden_metaboxes( array $meta_boxes ) {
 				'type' => 'file',
 			),
 			array(
+				'name' => 'Section 3 Parallax',
+				'desc' => "Check this to cause parallax effect on this section's background image",
+				'id' => $prefix . 'section_3_parallax',
+				'type' => 'checkbox'
+			),
+			array(
 				'name' => __( 'Section 4 Title', 'cmb2' ),
 				'id'   => $prefix . 'section_4_title',
 				'type' => 'text',
@@ -217,6 +223,12 @@ function cmb2_cyclegarden_metaboxes( array $meta_boxes ) {
 				'type' => 'file',
 			),
 			array(
+				'name' => 'Section 4 Parallax',
+				'desc' => "Check this to cause parallax effect on this section's background image",
+				'id' => $prefix . 'section_4_parallax',
+				'type' => 'checkbox'
+			),
+			array(
 				'name' => __( 'Section 5 Title', 'cmb2' ),
 				'id'   => $prefix . 'section_5_title',
 				'type' => 'text',
@@ -229,6 +241,88 @@ function cmb2_cyclegarden_metaboxes( array $meta_boxes ) {
 			array(
 				'name' => 'Section 5 Background Image',
 				'id'   => $prefix . 'section_5_background',
+				'type' => 'file',
+			),
+			array(
+				'name' => 'Section 5 Parallax',
+				'desc' => "Check this to cause parallax effect on this section's background image",
+				'id' => $prefix . 'section_5_parallax',
+				'type' => 'checkbox'
+			),
+		)
+	);
+
+	/**
+	 * Metabox to be displayed on a single page ID
+	 */
+	$meta_boxes['page-standard_metabox'] = array(
+		'id'           => 'page-standard_metabox',
+		'title'        => __( 'Standard Page Metabox', 'cmb2' ),
+		'object_types' => array( 'page', ), // Post type
+		'context'      => 'normal',
+		'priority'     => 'high',
+		'show_names'   => true, // Show field names on the left
+		//'show_on'      => array( 'key' => 'id', 'value' => array( 2, ), ), // Specific post IDs to display this metabox
+		'fields'       => array(
+			array(
+				'name' => __( 'Head Section Title', 'cmb2' ),
+				'id'   => $prefix . 'head_section_title',
+				'type' => 'text',
+			),
+			array(
+				'name' => 'Section Head Featured Image',
+				'desc' => 'Select the image that will appear in the head section next to the description',
+				'id'   => $prefix . 'head_section_featured',
+				'type' => 'file',
+			),
+			array(
+				'name' => 'Section Head Featured Custom Overide',
+				'desc' => 'Check this to use custom hard-coded featured image instead of the standard one above',
+				'id' => $prefix . 'head_section_featured_override',
+				'type' => 'checkbox'
+			),
+			array(
+				'name' => 'Section Head Background Image',
+				'desc' => 'The image that goes behind the head section and video section',
+				'id'   => $prefix . 'head_section_background',
+				'type' => 'file',
+			),
+			array(
+				'name' => __( 'Video Section Title', 'cmb2' ),
+				'id'   => $prefix . 'video_section_title',
+				'type' => 'text',
+			),
+			array(
+				'name'	=> __('YouTube Video ID', 'cmb2'),
+				'id'	=> $prefix . 'youtube_vid_id',
+				'type'	=> 'text'
+			),
+			array(
+				'name'	=> __('Vimeo Video ID', 'cmb2'),
+				'id'	=> $prefix . 'vimeo_vid_id',
+				'type'	=> 'text'
+			),
+			array(
+				'name' => 'Video Section Content',
+				'id'   => $prefix . 'video_section_content',
+				'type' => 'textarea',
+			),
+			array(
+				'name' => __( 'Gallery Section Title', 'cmb2' ),
+				'id'   => $prefix . 'gallery_section_title',
+				'type' => 'text',
+			),
+			array(
+				'name' => 'Gallery Section Content',
+				'id'   => $prefix . 'gallery_section_content',
+				'type' => 'wysiwyg',
+				'options' => array(
+					'media_buttons' => true // show insert/upload button(s)
+				),
+			),
+			array(
+				'name' => 'Gallery Section Background Image',
+				'id'   => $prefix . 'gallery_section_background',
 				'type' => 'file',
 			),
 		)

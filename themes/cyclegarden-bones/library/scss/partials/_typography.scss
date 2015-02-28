@@ -143,7 +143,14 @@ $lato:			'Lato', $sans-serif;
 $roboto:		'Roboto Slab',$serif;
 $adelle:		'AdelleRegular','Roboto Slab',$serif;
 $bambola:	'BambolaRegular';
-$oswald:		'Oswald', $sans-serif;
+$oswald:		Oswald, $sans-serif;
+$raleway:		Raleway, $sans-serif;
+/*$oswald:		'Yanone Kaffeesatz', $sans-serif;*/
+
+@mixin adelle {
+	font-family:$adelle;
+	letter-spacing:1px;
+}
 
 /*
 some nice typographical defaults

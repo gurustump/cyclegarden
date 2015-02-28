@@ -101,6 +101,21 @@ POSTS & CONTENT STYLES
 
 } /* end .entry-content */
 
+.pretty-boxes {
+	.pretty-box {
+		margin-left:auto;
+		margin-right:auto;
+		max-width:400px;
+		.pretty-box-inner {
+			padding:10px 55px 20px;
+		}
+		.thumb-container {
+			margin-left:-40px;
+			margin-right:-40px;
+		}
+	}
+}
+
 /*********************
 FOOTER STYLES
 *********************/
@@ -120,16 +135,15 @@ OV STYLES
 *********************/
 
 .gallery-item-ov-wrap {
-	padding:15px;
 	.ui-dialog-titlebar {
 		.ui-dialog-titlebar-close {
-			background:#222;
-			border:4px solid #000;
+			background:#111;
+			/*border:4px solid #000;*/
 			@include border-radius(50%);
-			width:40px;
-			height:40px;
-			right:-10px;
-			top:-10px;
+			width:50px;
+			height:50px;
+			right:-70px;
+			top:0;
 			.ui-icon {
 				left:50%;
 				top:50%;
@@ -138,7 +152,27 @@ OV STYLES
 				box-shadow:none;
 			}
 			&:hover {
-				background:#444;
+				background:#333;
+			}
+		}
+	}
+}
+
+
+/*********************
+PAGE STYLES
+*********************/
+
+body.page-template-page-standard-php {
+	background:#000;
+	#content {
+		.content-head {
+			.featured {
+				display:block;
+				overflow:hidden;
+				img {
+					max-width:100%;
+				}
 			}
 		}
 	}

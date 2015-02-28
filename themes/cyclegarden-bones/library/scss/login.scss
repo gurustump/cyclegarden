@@ -13,11 +13,19 @@ http://codex.wordpress.org/Creating_Admin_Themes
 
 ******************************************************************/
 
+// import mixins
+@import "partials/mixins";
 
-body.login {}
+
+body.login {
+	background:#000 url(../images/headbg.png);
+}
 
 
-#login {} /* the form box */
+#login {
+	padding:0;
+	@include v-center;
+} /* the form box */
 
 /*
 This is the Wordpress logo in the admin area.
@@ -25,12 +33,12 @@ You'll have to load your own images and mess
 with the width and height.
 */
 .login h1 a {
-	background: url(../images/login-logo.png) no-repeat top center; /* make sure to replace this! */
-	width: 326px;
-	height: 67px;
+	background: url(../images/logo-home.png) no-repeat top center;
+	width: 498px;
+	height: 461px;
+	margin:0 0 0 -89px;
 	text-indent: -9999px;
 	overflow: hidden;
-	padding-bottom: 15px;
 	display: block;
 }
 

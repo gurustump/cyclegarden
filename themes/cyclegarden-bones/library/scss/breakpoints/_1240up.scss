@@ -13,6 +13,77 @@ on larger screens.
 	width:1220px;
 }
 
+/*********************
+HEADER STYLES
+*********************/
+
+.header {
+	body.home & {
+		.inner-header {
+			.logo-home {
+				margin-bottom:40px;
+			}
+		}
+	}
+}
+
+/*********************
+NAVIGATION STYLES
+*********************/
+
+.nav-ov {
+	font-size:18px;
+	nav {
+		a {
+			padding:0 20px !important;
+		}
+		& > ul {
+			& > li {
+				& > a {
+					font-size:24px;
+					height:55px;
+					line-height:55px;
+					& > span {
+						& > span {
+							bottom:-19px;
+						}
+					}
+				}
+				.sub-menu {
+					.nav-head {
+						& > a {
+							font-size:24px;
+							height:55px;
+							line-height:55px;
+						}
+					}
+					& > li {
+						& > a {
+							height:45px;
+							line-height:45px;
+						}
+					}
+					.nav-subhead {
+						& > a {
+							font-size:24px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+/*********************
+POSTS & CONTENT STYLES
+*********************/
+
+
+.hard-columns {
+	width:470px;
+}
+
+
 /******************************************************************
 GALLERY STYLES
 ******************************************************************/
@@ -20,5 +91,57 @@ GALLERY STYLES
 .gallery {
 	.gallery-item {
 		width:295px;
+	}
+}
+
+
+/*********************
+POSTS & CONTENT STYLES
+*********************/
+
+.pretty-boxes {
+	.pretty-box {
+		.pretty-box-inner {
+			padding:10px 35px 20px;
+		}
+		.thumb-container {
+			margin-left:-20px;
+			margin-right:-20px;
+		}
+	}
+}
+
+/*********************
+PAGE STYLES
+*********************/
+body.home {
+	.content-two {
+		.wrap {
+			max-width:75%;
+		}
+	}
+}
+
+body.page-template-page-standard-php {
+	#content {
+		#main {
+			.section-content {
+				.hard-columns {
+					.section-icon {
+						&.multi-column {
+							display:block;
+						}
+						&.single-column {
+							display:none;
+						}
+						margin:0 20px 10px 0;
+						width:auto;
+					}
+				}
+			}
+			.featured {
+				width:650px;
+			}
+		}
 	}
 }

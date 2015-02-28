@@ -33,6 +33,9 @@
 					<a href="#" class="next NEXT">Next</a>
 				</div> 
 			</figure>
+			<figure id="video_ov" class="ov video-ov VIDEO_OV">
+			
+			</figure>
 		</div>
 
 		<?php // all js scripts are loaded in library/bones.php ?>

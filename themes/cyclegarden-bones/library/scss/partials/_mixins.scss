@@ -47,6 +47,14 @@ $prefixes: ("-webkit-", "-moz-", "-ms-", "-o-",  "");
 	}
 }
 
+@mixin v-center {
+	@each $prefix in $prefixes {
+		@include transform(translateY(-50%));
+	}
+	position:relative;
+	top:50%;
+}
+
 /*********************
 CSS3 GRADIENTS
 Be careful with these since they can
@@ -86,4 +94,18 @@ probably best not to use it. I mean, were you going to anyway? */
 	@each $prefix in $prefixes {
 		#{$prefix}columns: $args;
 	}
+}
+
+@mixin column-gap($args) {
+	@each $prefix in $prefixes {
+		#{$prefix}column-gap: $args;
+	}
+}
+
+@mixin clearfix {
+	content:".";
+	height:0;
+	display:block;
+	visibility:hidden;
+	clear:both;
 }

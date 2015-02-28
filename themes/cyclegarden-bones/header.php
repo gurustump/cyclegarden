@@ -46,7 +46,7 @@
 				<span class="bar-2"></span>
 				<span class="bar-3"></span>
 			</span>
-			<span>Main Menu</span>
+			<span class="title">Menu</span>
 		</a>
 		<div class="nav-ov NAV_OV">
 			<nav role="navigation">
@@ -58,8 +58,8 @@
 				'theme_location' => 'main-nav',                 // where it's located in the theme
 				'before' => '',                                 // before the menu
 			'after' => '',                                  // after the menu
-			'link_before' => '',                            // before each link
-			'link_after' => '',                             // after each link
+			'link_before' => '<span>',                            // before each link
+			'link_after' => '</span>',                             // after each link
 			'depth' => 0,                                   // limit the depth of the nav
 				'fallback_cb' => ''                             // fallback function (if there is one)
 				)); ?>
@@ -68,18 +68,50 @@
 		</div>
 		<header class="header" role="banner">
 			<?php if (is_front_page()) { ?>
-			<table id="inner-header">
-				<tr>
-					<td>
-						<hi id="logo" class="h1"><a href="<?php echo home_url(); ?>" rel="nofollow"><?php bloginfo('name'); ?></a></h1>
-						<?php // if you'd like to use the site description you can un-comment it below ?>
-						<?php // bloginfo('description'); ?>
-					</td>
-				</td>
-			</table>
+			<p id="logo" class="h1"><a href="<?php echo home_url(); ?>" rel="nofollow"><?php bloginfo('name'); ?></a></p>
+			<video id="bgvid" poster="video/video.jpg" loop="" autoplay="">
+				<source type="video/mp4" src="<?php echo get_template_directory_uri(); ?>/library/video/Home_Original.mp4"></source>
+				<source type="video/webm" src="<?php echo get_template_directory_uri(); ?>/library/video/Home_Original.webm"></source>
+				<source type="video/webm" src="<?php echo get_template_directory_uri(); ?>/library/video/Home_Original.webm"></source>
+				<source type="video/ogg" src="<?php echo get_template_directory_uri(); ?>/library/video/Home_Original.ogv"></source>
+			</video>
+			<div class="inner-header">
+				<div class="logo-home">
+					<h1 class="logo h1"><img id="homeLogo" src="<?php echo get_template_directory_uri(); ?>/library/images/logo-home.png" alt="Cycle Garden Moto Guzzi Shop" /><span><?php bloginfo('name'); ?> <?php bloginfo('description'); ?></span></h1>
+					
+				</div>
+				<table class="hours">
+					<tr>
+						<th>Sun</th>
+						<th>Mon</th>
+						<th>Tue</th>
+						<th>Wed</th>
+						<th>Thu</th>
+						<th>Fri</th>
+						<th>Sat</th>
+					</tr>
+					<tr>
+						<td rowspan="2">Closed</td>
+						<td>9am<hr /></td>
+						<td>9am<hr /></td>
+						<td>9am<hr /></td>
+						<td>9am<hr /></td>
+						<td>9am<hr /></td>
+						<td rowspan="2">Apt.<br />Only</td>
+					</tr>
+					<tr>
+						<td>5pm</td>
+						<td>5pm</td>
+						<td>5pm</td>
+						<td>5pm</td>
+						<td>5pm</td>
+					</tr>
+				</table>
+			</div>
 			<?php } else { ?>
 				<div id="inner-header">
 					<p id="logo" class="h1"><a href="<?php echo home_url(); ?>" rel="nofollow"><?php bloginfo('name'); ?></a></p>
 				</div>
 			<?php } ?>
+			<div class="scroller"></div>
 		</header>

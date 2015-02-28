@@ -17,6 +17,15 @@ require_once( 'library/custom-post-type.php' );
 // CUSTOMIZE THE WORDPRESS ADMIN (off by default)
 require_once( 'library/admin.php' );
 
+if (!is_admin()) {
+	wp_register_style( 'owl-stylesheet', get_stylesheet_directory_uri() . '/library/css/owl.carousel.css', array(), '', 'all' );
+	wp_register_script( 'owl-carousel', get_stylesheet_directory_uri() . '/library/js/libs/owl.carousel.min.js', array('jquery'), '2.0', false );
+	wp_register_script( 'columnizer', get_stylesheet_directory_uri() . '/library/js/libs/jquery.columnizer.js', array('jquery'), '1.6.0', false );
+	wp_enqueue_style( 'owl-stylesheet' );
+	wp_enqueue_script( 'owl-carousel' );
+	wp_enqueue_script( 'columnizer' );
+}
+
 /*********************
 LAUNCH BONES
 Let's get everything up and running.
@@ -426,7 +435,7 @@ and be up and running in seconds.
 function bones_fonts() {
   //wp_register_style('googleFonts', 'http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic');
   //wp_register_style('googleFonts', 'http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700');
-  wp_register_style('googleFonts', 'http://fonts.googleapis.com/css?family=Oswald:400,300,700|Roboto+Slab:400,100,300,700');
+  wp_register_style('googleFonts', 'http://fonts.googleapis.com/css?family=Oswald:400,300,700|Roboto+Slab:400,100,300,700|Raleway:300,400,700,900|Yanone+Kaffeesatz:300,400,700');
   wp_enqueue_style( 'googleFonts');
 }
 
@@ -441,5 +450,65 @@ function custom_body_classes($class_names)  {
 add_filter('body_class','custom_body_classes');
 
 require_once( 'cmb-functions.php' );
+
+
+/* SHORTCODES */
+function carousel_shortcode($atts) {
+	extract( shortcode_atts( array(
+		'slug' => 'home-page-vendors',
+		'category' => 'carousel',
+	), $atts ) );
+	
+	$carouselBlock = '<div class="carousel-block"><div class="owl-carousel">';
+	
+	$carouselModule = get_posts(array('post_type' => 'module', 'module_category' => $category, 'name' => $slug));
+	if (isset($carouselModule[0])) {
+		$carouselGalleryImages = get_post_gallery_images($carouselModule[0]->ID);
+		foreach($carouselGalleryImages as $image) {
+			$carouselBlock .= '<div><img src="'.$image.'" /></div>';
+		}
+	}
+	
+	$carouselBlock .= '</div></div>';
+	
+	return $carouselBlock;
+}
+add_shortcode('carousel', 'carousel_shortcode');
+
+function pretty_box_shortcode($atts) {
+	extract( shortcode_atts( array(
+		'category' => 'home-shop',
+	), $atts) );
+	
+	$prettyBoxes = '<div class="pretty-boxes">';
+	
+	$prettyBoxModules = get_posts(array('post_type' => 'module', 'module_cat' => $category, 'orderby' => 'menu_order', 'order' => 'ASC'));
+	if (isset($prettyBoxModules[0])) {
+		foreach($prettyBoxModules as $box) {
+			$prettyBoxes .= '<div class="pretty-box"><div class="pretty-box-inner">';
+			$prettyBoxes .= '<h2>'.$box->post_title.'</h2>';
+			$prettyBoxes .= '<div class="thumb-container">'.get_the_post_thumbnail($box->ID,'full').'</div>';
+			$prettyBoxes .= '<div class="content">'.$box->post_content.'</div>';
+			$prettyBoxes .= '<div class="actions"><a class="btn" href="tel://1-714-848-5955">Order by Phone</a></div>';
+			$prettyBoxes .= '</div></div>';
+		}
+	}
+	
+	$prettyBoxes .= '</div>';
+	return $prettyBoxes;
+}
+add_shortcode('prettyboxes', 'pretty_box_shortcode');
+
+function section_icon_shortcode($atts) {
+	extract( shortcode_atts( array(
+		'class' => 'multi-column',
+	), $atts) );
+	global $post;
+	$sectionIcon = '<span class="section-icon '.$class.'">';
+	$sectionIcon .= '<img src="'.get_stylesheet_directory_uri().'/library/images/section-icons/'.$post->post_name.'.png" />';
+	$sectionIcon .= '</span>';
+	return $sectionIcon;
+}
+add_shortcode('section-icon', 'section_icon_shortcode');
 
 /* DON'T DELETE THIS CLOSING TAG */ ?>

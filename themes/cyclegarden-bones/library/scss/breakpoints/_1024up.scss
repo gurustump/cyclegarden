@@ -9,5 +9,206 @@ iPad landscape
 ******************************************************************/
 
 .wrap {
-  width:1008px;
+	width:1008px;
+}
+
+/*********************
+HEADER STYLES
+*********************/
+
+.header {
+	body.home & {
+		.inner-header {
+			.hours {
+				width:65%;
+			}
+		}
+	}
+}
+
+/*********************
+NAVIGATION STYLES
+*********************/
+
+.trigger-nav-ov {
+	&.active {
+		background:none;
+		margin:0;
+		padding:0;
+		height:auto;
+		width:auto;
+	}
+	.title {
+		display:block;
+	}
+}
+
+.nav-ov {
+	position:fixed;
+	top:0;
+	height:100%;
+	min-height:0;
+	font-size:16px;
+	&.open {
+		padding-top:0;
+	}
+	nav {
+		@include v-center;
+		padding-bottom:0;
+		display:inline-block;
+		min-height:0;
+		height:90%;
+		a {
+			padding:0 10px !important;
+		}
+		& > ul {
+			height:auto;
+			@include v-center;
+			& > li {
+				height:auto;
+				float:left;
+				border-left:1px solid #333;
+				&:first-child {
+					border:0;
+					& > a {
+						height:75px;
+					}
+				}
+				&.nav-restorations {
+					& > ul {
+						@include columns(auto 2);
+					}
+				}
+				&.nav-eye-candy {
+					& > a > span {
+						@include transform(translateY(0));
+					}
+				}
+				& > a {
+					& > span {
+						& > span {
+							bottom:-18px;
+						}
+					}
+				}
+				.sub-menu {
+					padding:0;
+					height:auto;
+					.nav-head {
+						height:auto;
+						& > a {
+							margin-top:15px;
+						}
+						&.nav-moto-guzzi {
+							& > a {
+								margin-top:0;
+							}
+						}
+					}
+					& > li {
+						& > a {
+						}
+					}
+					&.active {
+						& > li {
+							& > a {
+								height:55px;
+								line-height:55px;
+							}
+							&.nav-info-item a {
+								height:0;
+								line-height:0;
+							}
+							&.nav-head a {
+								height:75px;
+								line-height:75px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/*********************
+POSTS & CONTENT STYLES
+*********************/
+
+
+.pretty-boxes {
+	margin-right:-1.33%;
+	.pretty-box {
+		float:left;
+		width:32%;
+		margin:0 1.33% 0 0;
+		max-width:none;
+		@include box-sizing;
+		.pretty-box-inner {
+			padding:10px 15px 20px;
+		}
+		.thumb-container {
+			margin-left:0;
+			margin-right:0;
+		}
+		h2 {
+			margin-top:12px;
+			font-size:24px;
+			line-height:24px;
+			span {
+				font-size:20px;
+			}
+		}
+		.features {
+			font-size:13px;
+		}
+		h3 {
+			font-size:13px;
+		}
+		.notes {
+			font-size:12px;
+		}
+	}
+}
+
+.hard-columns {
+	font-size:16px;
+}
+
+/*********************
+OV STYLES
+*********************/
+
+.ov-wrap {
+	&.video-ov-wrap {
+		padding:30px;
+	}
+}
+
+/*********************
+PAGE STYLES
+*********************/
+body.home {
+	.content-two {
+		.wrap {
+			max-width:80%;
+		}
+	}
+}
+body.page-template-page-standard-php {
+	#content {
+		.content-head {
+			.featured {
+				.hover {
+					display:block;
+				}
+				.speedo-container {
+					h2 {
+						display:block;
+					}
+				}
+			}
+		}
+	}
 }

@@ -13,6 +13,100 @@ on larger screens.
 	width:1552px;
 }
 
+/*********************
+HEADER STYLES
+*********************/
+
+.header {
+	body.home & {
+		.inner-header {
+			.hours {
+				width:45%;
+			}
+		}
+	}
+}
+
+/*********************
+NAVIGATION STYLES
+*********************/
+
+.nav-ov {
+	font-size:24px;
+	nav {
+		a {
+			padding:0 30px !important;
+		}
+		& > ul {
+			& > li {
+				& > a {
+					font-size:30px;
+					height:75px;
+					line-height:75px;
+					& > span {
+						& > span {
+							bottom:-25px;
+						}
+					}
+				}
+				.sub-menu {
+					.nav-head {
+						& > a {
+							font-size:30px;
+							height:75px;
+							line-height:75px;
+						}
+					}
+					& > li {
+						& > a {
+							height:55px;
+							line-height:55px;
+						}
+					}
+					.nav-subhead {
+						& > a {
+							font-size:30px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/*********************
+POSTS & CONTENT STYLES
+*********************/
+
+.pretty-boxes {
+	.pretty-box {
+		.pretty-box-inner {
+			padding:10px 55px 20px;
+		}
+		.thumb-container {
+			margin-left:-40px;
+			margin-right:-40px;
+		}
+		h2 {
+			font-size:32px;
+			line-height:32px;
+			span {
+				font-size:26px;
+			}
+		}
+	}
+}
+.hard-columns {
+	width:802px !important;
+	.owl-prev {
+		float:left;
+	}
+	.owl-next {
+		float:right;
+	}
+}
+
 /******************************************************************
 GALLERY STYLES
 ******************************************************************/
@@ -20,5 +114,31 @@ GALLERY STYLES
 .gallery {
 	.gallery-item {
 		width:300px;
+	}
+}
+
+
+/*********************
+PAGE STYLES
+*********************/
+body.home {
+	#content {
+		.content-one {
+			.wrap {
+				width:1472px;
+				#main {
+					padding:0 124px;
+					.carousel-block {
+						margin-left:-124px;
+						margin-right:-124px;
+					}
+				}
+			}
+		}
+		.content-two {
+			.wrap {
+				max-width:70%;
+			}
+		}
 	}
 }

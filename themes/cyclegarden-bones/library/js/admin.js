@@ -14,9 +14,15 @@ jQuery(document).ready(function($) {
 });
 
 function toggleMetaboxes($) {
-	if ($('#page_template').val() == 'page-parallax.php') {
+	var pageTemplate = $('#page_template').val()
+	if (pageTemplate == 'page-parallax.php') {
 		$('#page-parallax_metabox').show();
 	} else {
 		$('#page-parallax_metabox').hide();
+	}
+	if (pageTemplate == 'page-standard.php') {
+		$('#page-standard_metabox').show();
+	} else {
+		$('#page-standard_metabox').hide();
 	}
 }

@@ -21,12 +21,15 @@ html, body {
 	height:100%;
 }
 body {
-	font-family: $adelle;
-	font-size: 100%;
-	line-height: 1.5;
-	color: $text-color;
-	background-color: $gray;
-	-webkit-font-smoothing: antialiased;
+	font-family:$adelle;
+	font-size:100%;
+	line-height:1.5;
+	color:$text-color;
+	background-color:#000;
+	-webkit-font-smoothing:antialiased;
+	&.lock {
+		overflow:hidden;
+	}
 }
 
 /********************
@@ -75,8 +78,7 @@ LAYOUT & GRID STYLES
 *********************/
 
 .wrap {
-	width: 96%;
-	margin: 0 auto;
+	margin:0 30px;
 }
 
 /*********************
@@ -87,7 +89,7 @@ a {
 	color: $link-color;
 
 	/* on hover */
-	&:hover, &:focus {
+	&:hover {
 		color: $link-hover;
 	}
 
@@ -114,6 +116,7 @@ H1, H2, H3, H4, H5 STYLES
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
 	text-rendering: optimizelegibility;
 	font-weight: 500;
+	margin-top:0;
 	/*
 	if you're going to use webfonts, be sure to check your weights
 	http://css-tricks.com/watch-your-font-weight/
@@ -152,32 +155,51 @@ h5, .h5 {
 	letter-spacing: 2px;
 }
 
+p {
+	margin-top:0;
+}
+
 /*********************
 HEADER STYLES
 *********************/
 
 .header {
 	text-align:center;
-	background-color:#000;
-	body.home & {
-		height:100%;
-		background-color:rgba(0,0,0,.5);
-		& > table {
-			height:100%;
-			width:100%;
-			td {
-				vertical-align:middle;
-			}
-		}
+	background-color:rgba(0,0,0,.9);
+	position:fixed;
+	top:0;
+	width:100%;
+	height:75px;
+	z-index:2;
+	@include transition(height  275ms);
+	body.scrolled & {
+		height:45px;
+	}
+}
+@keyframes scrollanimation {
+	0% {
+		height:4px;
+	}
+	50% {
+		height:20px;
+	}
+	100% {
+		height:4px;
 	}
 }
 
-#logo {
+#logo, .logo {
 	margin:0;
 	padding:10px 0; 
 	font-family:$bambola;
+	@include transition(transform  275ms);
+	body.scrolled & {
+		@include transform(translateY(-100%));
+	}
 	a {
 		color: $white;
+		z-index:9999;
+		position:relative;
 	}
 }
 
@@ -269,13 +291,25 @@ and more scalable.
 	text-transform:uppercase;
 	position:fixed;
 	left:20px;
-	top:15px;
+	top:25px;
 	font-size:17px;
-	z-index:9999;
+	z-index:9998;
+	@include transition(top .275ms);
+	&.active {
+		background:rgba(0,0,0,.9);
+		@include box-sizing;
+		height:75px;
+		margin:-24px 0 0 -20px;
+		padding:24px 0 0 24px;
+		width:100%;
+	}
 	& > span {
 		float:left;
 		height:24px;
 		line-height:24px;
+	}
+	body.scrolled & {
+		top:10px;
 	}
 	.ic {
 		margin-right:10px;
@@ -292,6 +326,16 @@ and more scalable.
 			width:22px;
 		}
 	}
+	.title {
+		display:none;
+		opacity:1;
+		@include transition(all 500ms);
+		position:absolute;
+		bottom:-17px;
+		left:0;
+		font-size:8px;
+		letter-spacing:1px;
+	}
 	&.active {
 		.ic {
 			@include transform(rotate(-45deg));
@@ -307,20 +351,24 @@ and more scalable.
 				}
 			}
 		}
+		.title {
+			opacity:0;
+		}
 	}
 }
 
 .nav-ov {
+	position:fixed;
+	overflow:auto;
+	width:100%;
+	height:100%;
+	z-index:-1;
 	vertical-align:middle;
-	font-size:24px;
+	font-size:18px;
 	font-family:$oswald;
 	font-weight:300;
 	letter-spacing:2px;
 	text-transform:uppercase;
-	width:100%;
-	height:100%;
-	position:fixed;
-	z-index:9998;
 	color:#fff;
 	text-align:center;
 	opacity:0;
@@ -328,8 +376,10 @@ and more scalable.
 	@include transition(all .2s);
 	background-color:rgba(0,0,0,.9);
 	&.open {
+		z-index:9997;
 		opacity:1;
 		@include transform(scale(1));
+		padding-top:75px;
 	}
 	a {
 		&:hover {
@@ -337,35 +387,62 @@ and more scalable.
 		}
 	}
 	nav {
-		display:inline-block;
-		height:90%;
-		position:relative;
-		top:50%;
-		@include transform(translateY(-50%));
+		padding-bottom:80px;
+		min-height:100%;
+		.dummy {
+			& > a {
+				display:none;
+				height:0 !important;
+			}
+			& > .sub-menu {
+				padding-top:0;
+				padding-bottom:0;
+			}
+		}
 		a {
 			text-decoration:none;
-			padding:15px 30px !important;
+			padding:0 30px !important;
+			overflow:hidden;
 		}
 		& > ul {
-			position:relative;
-			top:50%;
-			@include transform(translateY(-50%));
+			/* height:100%; */
 			& > li {
-				border-left:1px solid #333;
+				float:none;
+				/* height:20%; */
 				&:first-child {
-					border:0;
-				}
-				&.nav-restorations {
-					& > ul {
-						@include columns(auto 2);
+					/* height:40%; */
+					& > a {
+						/* height:50%; */
 					}
 				}
 				& > a {
+					height:55px;
+					line-height:55px;
 					font-weight:400;
-					font-size:30px;
+					font-size:20px;
 					background:#666666;
+					/* height:100%; 
+					line-height:100%; */
+					position:relative;
+					& > span {
+						display:block;
+						& > span {
+							font-size:10px;
+							width:100%;
+							position:absolute;
+							left:0;
+							bottom:-18px;
+							font-weight:300;
+						}
+					}
+				}
+				&.nav-eye-candy {
+					& > a > span {
+						@include transform(translateY(-10%));
+					}
 				}
 				.sub-menu {
+					padding:15px 0 20px;
 					text-align:left;
 					display:block;
 					visibility:visible;
@@ -374,28 +451,60 @@ and more scalable.
 					background:none;
 					border:0;
 					margin:0;
+					/* height:50%; */
 					.nav-head {
-						font-weight:400;
-						font-size:30px;
-						background:#666666;
-						text-align:center;
-						a:hover {
-							background:inherit;
+						/* height:100%; */
+						& > a {
+							height:55px;
+							line-height:55px;
+							font-weight:400;
+							font-size:20px;
+							background:#666666;
+							height:100%;
+							text-align:center;
+							& > span {
+								display:block;
+								/* @include v-center; */
+							}
+							&:hover {
+								background:#666666;
+							}
 						}
 					}
 					.nav-subhead {
 						& > a {
-							font-size:30px;
+							font-size:20px;
 							background:#222;
 						}
 					}
 					& > li {
 						float:none;
 						& > a {
+							height:40px;
+							line-height:40px;
 							width:auto;
 							border:0;
+							/* height:0; */
+							/* line-height:0; */
+							@include transition(all .25s);
 							&:hover {
 								background:#333;
+							}
+						}
+					}
+					&.active {
+						& > li {
+							& > a {
+								height:55px;
+								line-height:55px;
+							}
+							&.nav-info-item a {
+								/* height:0;
+								line-height:0; */
+							}
+							&.nav-head a {
+								/* height:75px;
+								line-height:75px; */
 							}
 						}
 					}
@@ -411,235 +520,442 @@ POSTS & CONTENT STYLES
 *********************/
 
 #content {
-	margin-top: 1.5em;
+	margin-top:75px;
 }
 
-		.hentry {
-			margin-bottom: 1.5em;
+.hentry {
+	margin-bottom: 1.5em;
 
-			header {
-				border-bottom: 1px solid $light-gray;
-			}
-
-			footer {
-				border-top: 1px solid $light-gray;
-
-				p {
-					margin: 0;
-				}
-			}
-
-		} /* end .hentry */
-
-		.single-title,
-		.page-title,
-		.entry-title {
-			margin: 0;
-		}
-
-		.single-title {}
-
-		.page-title {}
-
-		.entry-title {}
-
-		.archive-title {}
-
-		/* want to style individual post classes? Booya! */
-		.post-id {}         /* post by id (i.e. post-3) */
-		.post {}            /* general post style */
-		.page {}            /* general article on a page style */
-		.attachment {}      /* general style on an attatchment */
-		.sticky {}          /* sticky post style */
-		.hentry {}          /* hentry class */
-		.category-slug {}   /* style by category (i.e. category-videos) */
-		.tag-slug {}        /* style by tag (i.e. tag-news) */
-
-		/* post meta */
-		.byline {
-			color: $meta-gray;
-			font-style: italic;
-			margin: 0;
-
-			time {}
-		}
-
-		/* entry content */
-		.entry-content {
-
-			p {
-				margin: 0 0 1.5em;
-			}
-
-
-			ul, ol, table, dl {}
-
-			ul, ol {
-
-				li {}
-
-			}
-
-			ul {
-
-				li {}
-
-			}
-
-			ol {
-
-				li {}
-
-			}
-
-			table {
-				width: 100%;
-				border: 1px solid $gray;
-				margin-bottom: 1.5em;
-
-				caption {
-					margin: 0 0 7px;
-					font-size: 0.75em;
-					color: $meta-gray;
-					text-transform: uppercase;
-					letter-spacing: 1px;
-				}
-			}
-
-			tr {
-				border-bottom: 1px solid $gray;
-
-				&:nth-child(even) {
-					background-color: $light-gray;
-				}
-			}
-
-			td {
-				padding: 7px;
-				border-right: 1px solid $gray;
-
-				&:last-child {
-					border-right: 0;
-				}
-			}
-
-			th {
-				background-color: $light-gray;
-				border-bottom: 1px solid $gray;
-				border-right: 1px solid $gray;
-
-				&:last-child {
-					border-right: 0;
-				}
-			}
-
-			blockquote {
-				margin: 0 0 1.5em 0.75em;
-				padding: 0 0 0 0.75em;
-				border-left: 3px solid $blue;
-				font-style: italic;
-				color: $meta-gray;
-
-				&:before {}
-
-			}
-
-			dl {}
-
-			dt {}
-
-			dd {
-				margin-left: 0;
-				font-size: 0.9em;
-				color: #787878;
-				margin-bottom: 1.5em;
-			}
-
-			img {
-				margin: 0 0 1.5em 0;
-				max-width: 100%;
-				height: auto;
-			}
-
-			/*
-			image alignment on a screen this size may be
-			a bit difficult. It's set to start aligning
-			and floating images at the next breakpoint,
-			but it's up to you. Feel free to change it up.
-			*/
-			.alignleft, img.alignleft {}
-			.alignright, img.alignright {}
-			.aligncenter, img.aligncenter {}
-
-			.size-auto,
-			.size-full,
-			.size-large,
-			.size-medium,
-			.size-thumbnail {
-				max-width: 100%;
-				height: auto;
-			}
-
-			pre {
-				background: $black;
-				color: $light-gray;
-				font-size: 0.9em;
-				padding: 1.5em;
-				margin: 0 0 1.5em;
-				@include border-radius(3px);
-			}
-
-		} /* end .entry-content */
-
-		.wp-caption {
-			max-width: 100%;
-			background: #eee;
-			padding: 5px;
-
-			/* images inside wp-caption */
-			img {
-				max-width: 100%;
-				margin-bottom: 0;
-				width: 100%;
-			}
-
-			p.wp-caption-text {
-				font-size: 0.85em;
-				margin: 4px 0 7px;
-				text-align: center;
-			}
-
-		} /* end .wp-caption */
-
-		/* image gallery styles */
-		.gallery {
-
-			dl {
-
-				a {}
-
-				img {}
-
-			}
-
-			dt {}
-
-			dd {}
-
-		} /* end .gallery */
-
-		/* gallery caption styles */
-		.gallery-caption {}
-
-		.size-full {}
-		.size-large {}
-		.size-medium {}
-		.size-thumbnail {}
-
-	// the tag output
-	.tags {
-		margin: 0;
+	header {
+		border-bottom: 1px solid $light-gray;
 	}
+
+	footer {
+		border-top: 1px solid $light-gray;
+
+		p {
+			margin: 0;
+		}
+	}
+
+} /* end .hentry */
+
+.single-title,
+.page-title,
+.entry-title {
+	margin: 0;
+}
+
+.single-title {}
+
+.page-title {}
+
+.entry-title {}
+
+.archive-title {}
+
+/* want to style individual post classes? Booya! */
+.post-id {}         /* post by id (i.e. post-3) */
+.post {}            /* general post style */
+.page {}            /* general article on a page style */
+.attachment {}      /* general style on an attatchment */
+.sticky {}          /* sticky post style */
+.hentry {}          /* hentry class */
+.category-slug {}   /* style by category (i.e. category-videos) */
+.tag-slug {}        /* style by tag (i.e. tag-news) */
+
+/* post meta */
+.byline {
+	color: $meta-gray;
+	font-style: italic;
+	margin: 0;
+
+	time {}
+}
+
+/* entry content */
+.entry-content {
+
+	p {
+		margin: 0 0 1.5em;
+	}
+
+
+	ul, ol, table, dl {}
+
+	ul, ol {
+
+		li {}
+
+	}
+
+	ul {
+
+		li {}
+
+	}
+
+	ol {
+
+		li {}
+
+	}
+
+	table {
+		width: 100%;
+		border: 1px solid $gray;
+		margin-bottom: 1.5em;
+
+		caption {
+			margin: 0 0 7px;
+			font-size: 0.75em;
+			color: $meta-gray;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+	}
+
+	tr {
+		border-bottom: 1px solid $gray;
+
+		&:nth-child(even) {
+			background-color: $light-gray;
+		}
+	}
+
+	td {
+		padding: 7px;
+		border-right: 1px solid $gray;
+
+		&:last-child {
+			border-right: 0;
+		}
+	}
+
+	th {
+		background-color: $light-gray;
+		border-bottom: 1px solid $gray;
+		border-right: 1px solid $gray;
+
+		&:last-child {
+			border-right: 0;
+		}
+	}
+
+	blockquote {
+		margin: 0 0 1.5em 0.75em;
+		padding: 0 0 0 0.75em;
+		border-left: 3px solid $blue;
+		font-style: italic;
+		color: $meta-gray;
+
+		&:before {}
+
+	}
+
+	dl {}
+
+	dt {}
+
+	dd {
+		margin-left: 0;
+		font-size: 0.9em;
+		color: #787878;
+		margin-bottom: 1.5em;
+	}
+
+	img {
+		margin: 0 0 1.5em 0;
+		max-width: 100%;
+		height: auto;
+	}
+
+	/*
+	image alignment on a screen this size may be
+	a bit difficult. It's set to start aligning
+	and floating images at the next breakpoint,
+	but it's up to you. Feel free to change it up.
+	*/
+	.alignleft, img.alignleft {}
+	.alignright, img.alignright {}
+	.aligncenter, img.aligncenter {}
+
+	.size-auto,
+	.size-full,
+	.size-large,
+	.size-medium,
+	.size-thumbnail {
+		max-width: 100%;
+		height: auto;
+	}
+
+	pre {
+		background: $black;
+		color: $light-gray;
+		font-size: 0.9em;
+		padding: 1.5em;
+		margin: 0 0 1.5em;
+		@include border-radius(3px);
+	}
+
+} /* end .entry-content */
+
+.wp-caption {
+	max-width: 100%;
+	background: #eee;
+	padding: 5px;
+
+	/* images inside wp-caption */
+	img {
+		max-width: 100%;
+		margin-bottom: 0;
+		width: 100%;
+	}
+
+	p.wp-caption-text {
+		font-size: 0.85em;
+		margin: 4px 0 7px;
+		text-align: center;
+	}
+
+} /* end .wp-caption */
+
+/* image gallery styles */
+.gallery {
+
+	dl {
+
+		a {}
+
+		img {}
+
+	}
+
+	dt {}
+
+	dd {}
+
+} /* end .gallery */
+
+/* gallery caption styles */
+.gallery-caption {}
+
+.size-full {}
+.size-large {}
+.size-medium {}
+.size-thumbnail {}
+
+// the tag output
+.tags {
+	margin: 0;
+}
+
+.pretty-boxes {
+	.pretty-box {
+		background:url(../images/bg-home-about.jpg);
+		color:#000;
+		margin:0 -20px 10px;
+		padding:8px;
+		.pretty-box-inner {
+			border:2px solid #a5acb4;
+			padding:10px 15px 20px;
+		}
+		h2 {
+			text-align:center;
+			font-family:$oswald;
+			font-size:24px;
+			line-height:24px;
+			text-transform:uppercase;
+			span {
+				text-transform:none;
+				color:#b08e05;
+				font-family:bambola;
+				font-size:20px;
+				display:block;
+			}
+		}
+		.thumb-container {
+			position:relative;
+			height:auto;
+			text-align:center;
+			margin:20px 0;
+			img {
+				max-width:100%;
+				height:auto;
+				display:inline-block;
+			}
+		}
+		.features {
+			font-size:13px;
+			line-height:30px;
+			& > li {
+				padding-left:20px;
+				background:url(../images/ic-check.png) left 0 no-repeat;
+				line-height:1.2em;
+				margin-bottom:10px;
+			}
+		}
+		h3 {
+			font-size:13px;
+			margin-bottom:10px;
+		}
+		.notes {
+			font-size:11px;
+			margin-bottom:15px;
+		}
+		.deals {
+			text-align:center;
+			font-size:18px;
+			font-family:$oswald;
+			p {
+				margin-bottom:0;
+			}
+			.price {
+				font-size:24px;
+			}
+		}
+		.actions {
+			margin-top:20px;
+			text-align:center;
+		}
+	}
+	&:after {
+		@include clearfix;
+	}
+}
+
+.hard-columns {
+	/*letter-spacing:1px;*/
+	line-height:28px;
+	line-height:1.75em;
+	font-size:13px;
+	text-align:justify;
+	.owl-nav {
+		display:none;
+	}
+	.owl-prev, .owl-next {
+		@include transition(all .5s);
+		opacity:0;
+		font-family:$raleway;
+		font-size:11px;
+		font-weight:bold;
+		line-height:1em;
+		letter-spacing:2px;
+		text-transform:uppercase;
+		position:relative;
+		padding:16px 0;
+		&:after {
+			content:"";
+			display:block;
+			width: 0; 
+			height: 0; 
+			border-top:5px solid transparent;
+			border-bottom:5px solid transparent;
+			position:absolute;
+			top:50%;
+			margin-top:-5px;
+		}
+		&.active {
+			opacity:1;
+		}
+	}
+	p {
+		margin-bottom:15px;
+	}
+	.owl-prev {
+		float:left;
+		padding-left:12px;
+		&:after {
+			border-right:5px solid #ebe9e1;
+			left:0;
+		}
+	}
+	.owl-next {
+		float:right;
+		padding-right:12px;
+		&:after {
+			border-left:5px solid #ebe9e1;
+			right:0;
+		}
+	}
+	.owl-dots {
+		text-align:center;
+		.owl-dot {
+			display:inline-block;
+			/* margin:0 8px;*/
+			padding:15px;
+			& > span {
+				display:block;
+				background:#fff;
+				opacity:.5;
+				@include transition(all .5s);
+				width:13px;
+				height:13px;
+				@include border-radius(50%);
+			}
+			&.active {
+				& > span {
+					opacity:1;
+				}
+			}
+		}
+	}
+}
+
+.btn {
+	display:inline-block;
+	font-family:$raleway;
+	font-weight:bold;
+	text-transform:uppercase;
+	text-decoration:none;
+	letter-spacing:1px;
+	color:#fcf8e7;
+	background:#556273;
+	border:1px solid #bdbdb4;
+	position:relative;
+	z-index:1;
+	font-size:13px;
+	height:28px;
+	line-height:28px;
+	padding:0 12px;
+	&:after {
+		content:"";
+		position:absolute;
+		top:-3px;
+		bottom:-3px;
+		left:-3px;
+		right:-3px;
+		border:2px solid #556273;
+		z-index:0;
+	}
+	&:hover {
+		color:#fff;
+		opacity:.9;
+	}
+}
+
+.vid-embed-dummy {
+	display:none;
+	& > iframe {
+		display:none;
+	}
+}
+
+
+
+/******************************************************************
+VARIOUS NON-SEMANTIC STYLES
+******************************************************************/
+.alignleft {
+	float:left;
+	margin:0 20px 10px 0;
+}
+.crop-circle {
+	border-radius:50%;
+}
+.text-dark {
+	color:#000;
+}
 
 /******************************************************************
 GALLERY STYLES
@@ -648,18 +964,40 @@ GALLERY STYLES
 .gallery {
 	margin-right:-4%;
 	.gallery-item {
-		border:2px solid #fff;
-		box-shadow:0 0 4px 2px rgba(0,0,0,.2);
+		padding:2px;
 		float:left;
 		margin:0 2% 2% 0;
 		width:46%;
+		position:relative;
 		a {
 			outline:none;
 			img {
 				margin:0;
 				display:block;
+				max-width:100%;
+				height:auto;
 			}
 		}
+		.gallery-caption {
+			position:absolute;
+			left:0;
+			bottom:0;
+			padding:5px 10px;
+			background:rgba(0,0,0,.6);
+			@include box-sizing;
+			width:100%;
+			color:#fff;
+			opacity:0;
+			@include transition(all .25s);
+		}
+		&:hover {
+			.gallery-caption {
+				opacity:1;
+			}
+		}
+	}
+	&:after {
+		@include clearfix;
 	}
 }
 
@@ -1068,23 +1406,42 @@ OV STYLES
 *********************/
 	
 .ui-widget-overlay {
-	background:#000;
+	background:rgba(0,0,0,.95);
 	left:0;
-	opacity:0.9;
 	position:fixed;
 	top:0;
 	width:100%;
 	height:100%;
+	z-index:9999;
 }
 .ov {
 	display:none;
 }
-.gallery-item-ov-wrap {
+.ov-wrap {
 	background:#000;
-	height:auto !important;
 	position:fixed !important;
-	left:50% !important;
-	top:50% !important;
+	z-index:9999;
+	&.gallery-item-ov-wrap {
+		left:50% !important;
+		top:50% !important;
+		height:auto !important;
+	}
+	&.video-ov-wrap {
+		left:0 !important;
+		top:0 !important;
+		@include box-sizing;
+		.video-ov {
+			background:#111 url(../images/loading-111_777.gif) no-repeat 50% 50%;
+			iframe {
+				max-width:100%;
+				max-height:100%;
+			}
+		}
+		.ui-dialog-titlebar .ui-dialog-titlebar-close .ui-icon {
+			top:10px;
+			right:10px;
+		}
+	}
 	.ui-dialog-titlebar {
 		position:absolute;
 		top:0;
@@ -1142,6 +1499,135 @@ OV STYLES
 	}
 }
 
+/*********************
+PAGE STYLES
+*********************/
+body.home {
+	.trigger-nav-ov {
+		top:25px;
+	}
+	#logo {
+		background-color:rgba(0,0,0,.9);
+		position:fixed;
+		z-index:2;
+		width:100%;
+		top:-75px;
+		@include transition(all 275ms);
+		@include transform(none);
+	}
+	&.scrolled #logo {
+		top:0;
+	}
+	.logo {
+		padding:0;
+	}
+	.header {
+		@include transform(none !important);
+		height:100%;
+		background:url(../images/headbg.png);
+		position:static;
+		z-index:auto;
+		video {
+			display:none;
+		}
+		.inner-header {
+			@include v-center;
+			.logo-home {
+				max-width:100%;
+				img {
+					max-width:100%;
+					display:inline-block;
+				}
+				span {
+					text-indent:-9999px;
+					display:inline-block;
+				}
+			}
+			.hours {
+				display:none;
+				width:85%;
+				margin:0 auto;
+				th {
+					color:#c2b786;
+					font-family:$oswald;
+					text-transform:uppercase;
+					font-weight:normal;
+					width:14.25%;
+				}
+				td {
+					vertical-align:top;
+					color:#fff;
+					font-size:14px;
+					width:14.25%;
+					hr {
+						border:0;
+						height:1px;
+						margin:7px auto 5px;
+						display:block;
+						background:rgba(255,255,255,.3);
+						width:10px;
+					}
+				}
+			}
+		}
+		.scroller {
+			width:30px;
+			height:50px;
+			border-radius:14px;
+			border:2px solid #fff;
+			opacity:.8;
+			position:absolute;
+			bottom:15px;
+			left:50%;
+			margin-left:-17px;
+			@include box-sizing;
+			@include transition(all 500ms);
+			&:hover {
+				opacity:1;
+			}
+			&:before {
+				content:"";
+				background:#fff;
+				width:4px;
+				height:4px;
+				position:absolute;
+				top:8px;
+				left:50%;
+				margin-left:-2px;
+				border-radius:4px;
+				animation:2s ease 0s normal none infinite running scrollanimation;
+			}
+		}
+	}
+	#content {
+		margin:0;
+	}
+	.carousel-block {
+		margin-top:31px;
+		&:before {
+			content:"";
+			display:block;
+			height:31px;
+			position:relative;
+			top:-20px;
+			background:url(../images/hr-moto.png) no-repeat 50% 50%;
+		}
+		.owl-carousel {
+			.owl-item {
+				text-align:center;
+				height:150px;
+				& > div {
+					@include v-center;
+					img {
+						display:inline;
+						width:auto;
+						max-width:100%;
+					}
+				}
+			}
+		}
+	}
+}
 body.page-template-page-parallax-php {
 	#content {
 		& > section {
@@ -1149,7 +1635,7 @@ body.page-template-page-parallax-php {
 			background-size:100% auto;
 			background-position:50% 0;
 			position:relative;
-			&.bg-image:after {
+			&.bg-parallax:after {
 				background:rgba(0, 0, 0, 0.4);
 				content:"";
 				display:block;
@@ -1159,13 +1645,94 @@ body.page-template-page-parallax-php {
 				top:0;
 				width:100%;
 			}
-			&.bg-image > * {
+			&.bg-parallax > * {
 				position:relative;
 				z-index:1;
+			}
+			&.bg-repeat {
+				background-size:auto;
+				background-position:0% 0%;
+				background-repeat:repeat;
 			}
 		}
 	}
 }
+body.page-template-page-standard-php {
+	background:#000;
+	#content {
+		.page-header {
+			padding:10px 10px 20px;
+			h1 {
+				font-family:$oswald;
+				text-transform:uppercase;
+				line-height:1em;
+				text-align:center;
+				color:rgba(243,244,230,.23);
+				font-weight:bold;
+			}
+		}
+		.content-head {
+			.featured {
+				margin-bottom:10px;
+				img {
+					max-width:100%;
+				}
+				.hover {
+					display:none;
+				}
+				.speedo-container {
+					h2 {
+						display:none;
+					}
+				}
+			}
+			.section-content {
+				color:#ebe9e1;
+				font-size:14px;
+				h2 {
+					font-weight:bold;
+					font-size:24px;
+				}
+				.hard-columns {
+					&.raw {
+						position:absolute;
+						opacity:0;
+						width:800px;
+					}
+					.section-icon {
+						&.multi-column {
+							display:none;
+						}
+						float:left;
+						margin:0 10px 5px 0;
+						width:60px;
+					}
+				}
+			}
+		}
+		.content-gallery {
+			.section-content {
+				margin:0 -20px;
+			}
+		}
+	}
+}
+body.page-template-page-gallery-php {
+	background:#000;
+	#content {
+		#main {
+			width:auto;
+			padding:0;
+			.hentry {
+				header, footer {
+					border:0;
+				}
+			}
+		}
+	}
+}
+
+
 html body div#wpadminbar {
 	border-bottom:1px solid #444;
 	z-index:9999 !important;

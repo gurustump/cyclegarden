@@ -24,16 +24,25 @@ LAYOUT & GRID STYLES
 *********************/
 
 .wrap {
-	width: 756px;
+	width:756px;
+	margin:0 auto;
 }
 
 /*********************
 HEADER STYLES
 *********************/
 
-.header {}
+.header {
+	body.scrolled & {
+		height:75px;
+	}
+}
 
-	#logo {}
+#logo {
+	body.scrolled & {
+		@include transform(none);
+	}
+}
 
 /*********************
 NAVIGATION STYLES
@@ -136,6 +145,47 @@ NAVIGATION STYLES
 	}  /* end current highlighters */
 
 } /* end .nav */
+.trigger-nav-ov {
+	body.scrolled & {
+		top:25px;
+	}
+}
+
+
+/*********************
+POSTS & CONTENT STYLES
+*********************/
+
+.pretty-boxes {
+	.pretty-box {
+		h2 {
+			font-size:30px;
+			line-height:30px;
+			span {
+				font-size:24px;
+			}
+		}
+	}
+}
+
+
+/******************************************************************
+VARIOUS NON-SEMANTIC STYLES
+******************************************************************/
+.col {
+	float:left;
+}
+.col-3 {
+	margin-right:-5%;
+	&:after {
+		@include clearfix;
+	}
+	.col {
+		width:28.33%;
+		margin-right:5%;
+	}
+}
+
 
 /******************************************************************
 GALLERY STYLES
@@ -297,3 +347,142 @@ mobile. Make sure to double check these!
 	}
 } /* end .footer-links */
 
+
+
+/*********************
+PAGE STYLES
+*********************/
+body.home {
+	#content {
+		.content-one {
+			padding-top:80px;
+		}
+	}
+	.header {
+		overflow:hidden;
+		position:relative;
+		video {
+			display:block;
+			min-height:100%;
+			min-width:100%;
+			position:fixed;
+			top:0;
+			left:50%;
+			@include transform(translateX(-50%));
+			z-index:-1;
+		}
+		.inner-header {
+			.logo-home {
+				display:inline-block;
+				background:url(../images/logo-home.png) no-repeat;
+				width:498px;
+				height:461px;
+				margin-bottom:10px;
+			}
+			.hours {
+				display:table;
+				th {
+					font-size:30px;
+				}
+				td {
+					font-size:18px;
+				}
+			}
+		}
+		.scroller {
+			bottom:30px;
+		}
+	}
+}
+body.page-template-page-standard-php {
+	#content {
+		.page-header {
+			position:relative;
+			h1 {
+				font-size:100px;
+			}
+		}
+		#main {
+			&:after {
+				@include clearfix;
+			}
+			.section-content {
+				margin:0 30px;
+				font-size:16px;
+				h2 {
+					font-weight:bold;
+					font-size:30px;
+				}
+				.hard-columns {
+					p {
+						margin-bottom:28px;
+					}
+					.section-icon {
+						&.multi-column {
+							display:block;
+						}
+						&.single-column {
+							display:none;
+						}
+						width:75px;
+					}
+				}
+			}
+			.featured {
+				width:650px;
+				margin:0 auto 40px;
+			}
+			.speedo-container {
+				position:relative;
+				margin-top:40px;
+				width:652px;
+				height:460px;
+				h2 {
+					width:100%;
+					text-align:center;
+					position:absolute;
+					left:0;
+					top:-40px;
+					margin:0;
+					color:#fff; 
+				}
+				.hover {
+					position:absolute;
+					opacity:0;
+					@include transition(all .2s);
+					&:hover {
+						opacity:1;
+					}
+				}
+				.generator-warning {
+					left:278px;
+					top:8px;
+				}
+				.high-beam {
+					left:228px;
+					top:8px;
+				}
+				.left-turn {
+					left:105px;
+					top:75px;
+				}
+				.neutral-gear {
+					left:327px;
+					top:8px;
+				}
+				.oil-pressure {
+					left:378px;
+					top:8px;
+				}
+				.right-turn {
+					left:502px;
+					top:70px;
+				}
+				.spotlight {
+					left:110px;
+					top:146px;
+				}
+			}
+		}
+	}
+}
